@@ -14,4 +14,4 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-from .coords import handshake_dim
+from .coords import handshake_coord, handshake_dim, handshake_size

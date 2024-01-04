@@ -67,3 +67,82 @@ def handshake_dim(
         raise ValueError(
             f"Required dimension {required_dim} not found in the required index {required_index} in dim list {input_dims}"
         )
+
+
+def handshake_coord(
+    input_coords: OrderedDict[str, np.ndarray],
+    target_coords: OrderedDict[str, np.ndarray],
+    required_dim: str,
+) -> None:
+    """Simple check to see if the required dimensions have the same coordiante system
+
+    Parameters
+    ----------
+    input_coords : OrderedDict[str, np.ndarray]
+        Input coordinate system to validate
+    target_coords : OrderedDict[str, np.ndarray]
+        Target coordinate system
+    required_dim : str
+        Required dimension (name of coordinate)
+
+    Raises
+    ------
+    KeyError
+        If required dim is not present in coordinate systems
+    ValueError
+        If coordinates of required dimensions don't match
+    """
+    if required_dim not in input_coords:
+        raise KeyError(
+            f"Required dimension {required_dim} not found in input coordinates"
+        )
+
+    if required_dim not in target_coords:
+        raise KeyError(
+            f"Required dimension {required_dim} not found in target coordinates"
+        )
+
+    if not np.all(input_coords[required_dim] == target_coords[required_dim]):
+        raise ValueError(
+            f"Coordinate systems for required dim {required_dim} are not the same"
+        )
+
+
+def handshake_size(
+    input_coords: OrderedDict[str, np.ndarray],
+    required_dim: str,
+    required_size: int,
+) -> None:
+    """Simple check to see if a coordinate system of a given dimension is a required
+    size
+
+    Parameters
+    ----------
+    input_coords : OrderedDict[str, np.ndarray]
+        Input coordinate system to validate
+    required_dim : str
+        Required dimension (name of coordinate)
+    required_size : int
+        Required coordinate system size
+
+    Note
+    ----
+    Presently assumes coordinate system of given dimension is 1D
+
+    Raises
+    ------
+    KeyError
+        If required dim is not present in input coordinate system
+    ValueError
+        If required dimension is not of required size
+    """
+
+    if required_dim not in input_coords:
+        raise KeyError(
+            f"Required dimension {required_dim} not found in input coordinates"
+        )
+
+    if input_coords[required_dim].shape[0] != required_size:
+        raise ValueError(
+            f"Coordinate size for required dim {required_dim} is not of size {required_size}"
+        )

@@ -54,6 +54,7 @@ repos:
                 earth2mip/networks |
                 earth2mip/s2s |
                 earth2mip/xarray |
+                earth2mip/beta/models/nn |
                 earth2mip/forecasts.py |
                 earth2mip/_cli_utils.py |
                 earth2mip/score_ensemble_outputs.py |
